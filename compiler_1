@@ -1,0 +1,61 @@
+SEGMENT DATA
+ADDRESS 0x20000
+
+
+_Stack1:
+DZ 256
+
+_Stack1Pointer:
+D 0
+
+_Segment:
+D 0
+
+_State:
+D 0
+
+_StateMachineJumpAddresses:
+D State0 State1 State2
+
+_Token:
+BZ 256
+
+_Character:
+B 0
+
+_CharacterPointer:
+D 0
+
+
+
+
+SEGMENT CODE
+ADDRESS 0x10000
+
+
+Start:
+PUSHDL StateMachineLoop
+JUMP
+
+StateMachineLoop:
+PUSHDL 0x50000
+PUSHDL _CharacterPointer
+PUSHD
+ADD
+PUSHD
+
+PUSHDL _State
+PUSHD
+PUSHBL 3
+SL
+PUSHDL _StateMachineJumpAddresses
+ADD
+PUSHD
+JUMP
+
+State0:
+PUSHDL 1
+PUSHDL _State
+POPD
+PUSHDL StateMachineLoop
+JUMP

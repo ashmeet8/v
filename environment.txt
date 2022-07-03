@@ -1,0 +1,17 @@
+Environment:
+
+Inputs:  0200 to 02FF
+Outputs: 0300 to 03FF
+
+0200  D  Request Number
+
+0300  D  Error Number [00: No error, FFFFFFFFFFFFFFFF: Unknown request]
+
+Requests:
+
+01: Log data
+
+    Inputs:
+
+        08  D  Data Address
+        10  D  Data Size

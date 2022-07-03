@@ -1,0 +1,72 @@
+Architecture:
+
+Model:
+
+64-bit wide stack
+64-bit address space that is byte-addressed
+Little-endian
+
+Instructions:
+
+Stack:
+
++   +
+| Z |
++---+
+| Y |
++---+
+| X |
++---+
+
+[ 0000 0001 ] [ 01 ] Push 8-bit value immediately after this instruction onto stack, fill upper 56 bits with zeros.
+
+[ 0001 0001 ] [ 11 ] Push 16-bit value immediately after this instruction onto stack, fill upper 48 bits with zeros.
+
+[ 0010 0001 ] [ 21 ] Push 32-bit value immediately after this instruction onto stack, fill upper 32 bits with zeros.
+
+[ 0011 0001 ] [ 31 ] Push 64-bit value immediately after this instruction onto stack.
+
+[ 0000 0011 ] [ 03 ] Pop Z, then push 8-bit value at address Z onto stack, fill upper 56 bits with zeros.
+
+[ 0001 0011 ] [ 13 ] Pop Z, then push 16-bit value at address Z onto stack, fill upper 48 bits with zeros.
+
+[ 0010 0011 ] [ 23 ] Pop Z, then push 32-bit value at address Z onto stack, fill upper 32 bits with zeros.
+
+[ 0011 0011 ] [ 33 ] Pop Z, then push 64-bit value at address Z onto stack.
+
+[ 0000 0101 ] [ 05 ] Pop Y and Z, then write lower 8 bits of Y at address Z.
+
+[ 0001 0101 ] [ 15 ] Pop Y and Z, then write lower 16 bits of Y at address Z.
+
+[ 0010 0101 ] [ 25 ] Pop Y and Z, then write lower 32 bits of Y at address Z.
+
+[ 0011 0101 ] [ 35 ] Pop Y and Z, then write lower 64 bits of Y at address Z.
+
+[ 0000 0111 ] [ 07 ] Push this instruction address onto stack.
+
+[ 0000 1001 ] [ 09 ] Pop Y and Z, then push Y + Z onto stack.
+
+[ 1000 1001 ] [ 89 ] Pop Y and Z, then push Y - Z onto stack.
+
+[ 0100 1001 ] [ 49 ] Pop Y and Z, then push Y XOR Z onto stack.
+
+[ 0110 1001 ] [ 69 ] Pop Y and Z, then push Y OR Z onto stack.
+
+[ 0111 1001 ] [ 79 ] Pop Y and Z, then push Y AND Z onto stack.
+
+[ 0001 1001 ] [ 19 ] Pop Y and Z, then perform logical left shift on Y by the shift amount held in the lower 6 bits of Z and push result onto stack.
+
+[ 0011 1001 ] [ 39 ] Pop Y and Z, then perform logical right shift on Y by the shift amount held in the lower 6 bits of Z and push result onto stack.
+
+[ 0000 1011 ] [ 0B ] Pop Z, then jump to address Z.
+
+[ 0000 1101 ] [ 0D ] Pop X, Y and Z, then jump to address X if Y and Z are equal.
+
+[ 0001 1101 ] [ 1D ] Pop X, Y and Z, then jump to address X if Y and Z are not equal.
+
+[ 0010 1101 ] [ 2D ] Pop X, Y and Z, then jump to address X if Y is less than Z.
+
+[ 0011 1101 ] [ 3D ] Pop X, Y and Z, then jump to address X if Y is greater than or equal to Z.
+
+[ 0000 1111 ] [ 0F ] Request service from execution environment.
+
